@@ -4,17 +4,17 @@
 # ---------------------------------------------------------------
 
 # Site
-title: NexT
-subtitle:
+title: Welcome to TIDENIGHT's blog
+subtitle: Wind from the Far East 
 description:
-author: John Doe
+author: Yanzhe YU
 # Support language: de, en, fr-FR, id, ja, ko, pt-BR, pt, ru, zh-Hans, zh-hk, zh-tw
-language: en
+language: zh-Hans
 date_format: '%Y-%m-%d'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com' and baseurl as '/child'
-url:
+url: https://tidenight.github.io/
 baseurl:
 permalink: pretty
 
@@ -151,9 +151,9 @@ menu_icons:
 # ---------------------------------------------------------------
 
 # Schemes
-scheme: Muse
+#scheme: Muse
 #scheme: Mist
-#scheme: Pisces
+scheme: Pisces
 
 
 # ---------------------------------------------------------------
@@ -233,7 +233,8 @@ social_icons:
 
 # Sidebar Avatar
 # in directory: /assets/images/avatar.gif
-#avatar:
+avatar: https://upload.cc/i1/2021/05/21/7ey015.jpg
+
 
 
 # Table Of Contents in the Sidebar
