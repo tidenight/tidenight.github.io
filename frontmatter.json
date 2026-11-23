@@ -1,0 +1,75 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.framework.id": "astro",
+  "frontMatter.preview.host": "http://127.0.0.1:4321",
+  "frontMatter.preview.pathName": "posts",
+  "frontMatter.preview.trailingSlash": true,
+  "frontMatter.content.publicFolder": "public",
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "posts",
+      "path": "[[workspace]]/src/content/posts"
+    }
+  ],
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "default",
+      "pageBundle": false,
+      "filePrefix": null,
+      "clearEmpty": true,
+      "fields": [
+        {
+          "title": "标题",
+          "name": "title",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "摘要",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "title": "发布日期",
+          "name": "published",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "封面",
+          "name": "image",
+          "type": "image",
+          "isPreviewImage": true
+        },
+        {
+          "title": "封面替代文本",
+          "name": "imageAlt",
+          "type": "string"
+        },
+        {
+          "title": "标签",
+          "name": "tags",
+          "type": "list"
+        },
+        {
+          "title": "分类",
+          "name": "category",
+          "type": "choice",
+          "choices": ["独立游戏", "个人生活", "AI 技术"]
+        },
+        {
+          "title": "草稿",
+          "name": "draft",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "title": "语言（留空使用站点默认语言）",
+          "name": "lang",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

@@ -1,35 +1,37 @@
-# NexT
+# 月下存档点 · TIDENIGHT
 
-> 精于心，简于形
+基于 [Astro](https://astro.build/) 和 [Fuwari](https://github.com/saicaca/fuwari) 的中文个人博客，记录独立游戏、个人生活和 AI 技术。Fuwari 基线为 `6d39b0dec41282e7852e23e032998a5789abee28`，上游许可见 `LICENSE`。旧 Jekyll 站仍可在 Git 历史（`3077cbf`）查阅。
 
-NexT 是由 [Hexo NexT](https://github.com/iissnan/hexo-theme-next) 移植而来的 Jekyll 主题。<!--commit: f951075d9b739d26b42472431995fa68d08796aa-->
+## 本地开发
 
-<a href="http://simpleyyt.github.io/jekyll-theme-next/" target="_blank">在线预览 Preview</a> | <a href="http://simpleyyt.com" target="_blank">Yitao's Blog</a> | <a href="http://theme-next.simpleyyt.com" target="_blank">NexT 使用文档</a> |  [English Documentation](README.en.md)
+使用 Node.js 24 与项目锁定的 pnpm：
 
-[![Join the chat at https://gitter.im/simpleyyt/jekyll-theme-next](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jekyll-theme-next/lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+```sh
+corepack enable
+pnpm install --frozen-lockfile
+pnpm dev
+```
 
-![NexT Schemes](http://iissnan.com/nexus/next/next-schemes.jpg)
+文章在 `src/content/posts/`，按需使用 `pnpm new-post my-post` 生成草稿。三个分类名称为 `独立游戏`、`个人生活`、`AI 技术`；不想发布的文稿请设 `draft: true`。公开文章的文件名决定其 URL，发布后不要随意改名。
 
+验证生产版（Pagefind 静态搜索仅在构建后可验证）：
 
-## 浏览器支持 Browser support
+```sh
+pnpm check
+pnpm build
+pnpm preview
+```
 
-![Browser support](http://iissnan.com/nexus/next/browser-support.png)
+## GitHub Pages
 
+首次上线前，在仓库的 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。然后合入 `main`，即可由 `.github/workflows/pages.yml` 检查和部署 `dist/`；原站域名仍是 [tidenight.github.io](https://tidenight.github.io/)。
 
-## 贡献 Contributing
+## 配图来源
 
-欢迎提交问题与需求，修复代码。
+游戏截图只用于相应导读，权利归各自权利人；未提取、也不分发游戏内部贴图。更换配图时请保留署名，并核实使用条件。
 
-
-## 开发 Development
-
-NexT 主旨在于简洁优雅且易于使用，所以首先要尽量确保 NexT 的简洁易用性。
-
-NexT is built for easily use with elegant appearance. First things first, always keep things simple.
-
-
-## 捐赠
-
-支付宝捐赠链接还是要有的，万一真的有人捐呢。
-
-![支付宝扫码捐赠](http://7lryc0.com1.z0.glb.clouddn.com/a6x049034plyvjm1rvn4h28%20%281%29.png)
+| 站内文件 | 来源 |
+| --- | --- |
+| `public/media/monomoon-official.webp` | Gentle Giant，[Steam 截图](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3285880/03f3c0a759b3ac57a155e436370086e82b411eaa/ss_03f3c0a759b3ac57a155e436370086e82b411eaa.1920x1080.jpg)，[官方媒体资料](https://www.gentlegiantgames.com/presskit) |
+| `public/media/animal-well-official.webp` | Billy Basso / Bigmode，[Steam 截图](https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/813230/ss_8773f0939bfd96fe25fbb7395bbae3d725044b12.1920x1080.jpg)，[官方媒体资料](https://www.animalwell.net/press/build/Animal%20Well/index.html) |
+| `public/media/moonlit-savepoint.webp` | 使用内置 ImageGen 生成的首页插画，未输入游戏图像。提示词见 `docs/hero-prompt.md`。 |
