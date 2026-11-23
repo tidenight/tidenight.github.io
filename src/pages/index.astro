@@ -1,0 +1,11 @@
+---
+import SavepointHome from "@components/SavepointHome.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { getSortedPosts } from "@utils/content-utils";
+
+const posts = await getSortedPosts();
+---
+
+<MainGridLayout description="月下存档点是 TIDENIGHT 的个人博客，记录独立游戏、生活手记和 AI 技术实验。">
+	<SavepointHome posts={posts} />
+</MainGridLayout>

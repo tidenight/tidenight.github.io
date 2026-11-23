@@ -1,0 +1,122 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getCategoryUrl, getPostUrlBySlug, url } from "../utils/url-utils";
+
+interface Props {
+	posts: CollectionEntry<"posts">[];
+}
+
+const { posts } = Astro.props;
+const topics = [
+	{
+		name: "独立游戏", label: "INDIE GAMES", tone: "lilac",
+		description: "无剧透推荐、游玩感想与游戏设计。",
+		icon: "M4 3h8v2h2v2h1v5h-3v-2H4v2H1V7h1V5h2zm1 2v2H3v1h2v2h1V8h2V7H6V5zm5 2v1h1V7zm2 1v1h1V8z",
+	},
+	{
+		name: "个人生活", label: "LIFE LOG", tone: "rose",
+		description: "把日常里值得记住的小事写下来。",
+		icon: "M3 2h10v1h1v10h-1v1H3v-1H2V3h1zm0 2v8h2V4zm4 1v1h5V5zm0 3v1h4V8z",
+	},
+	{
+		name: "AI 技术", label: "AI LAB", tone: "mint",
+		description: "实验记录、评测方法和工具实践。",
+		icon: "M5 1h1v2h1V1h2v2h1V1h1v2h2v2h2v1h-2v1h2v2h-2v1h2v1h-2v2h-2v2h-1v-2H9v2H7v-2H6v2H5v-2H3v-2H1v-1h2V9H1V7h2V6H1V5h2V3h2zm0 4v6h6V5zm2 2h2v2H7z",
+	},
+];
+
+const editorial = [
+	{ slug: "monomoon-first-look", game: "MONOMOON", credit: "Gentle Giant", tone: "lilac" },
+	{ slug: "animal-well-first-look", game: "ANIMAL WELL", credit: "Billy Basso / Bigmode", tone: "mint" },
+];
+const featured = editorial.flatMap((item) => {
+	const post = posts.find(({ slug }) => item.slug === slug);
+	return post ? [{ ...item, post }] : [];
+});
+const featuredSlugs = new Set(featured.map(({ slug }) => slug));
+const latest = posts.filter(({ slug }) => !featuredSlugs.has(slug)).slice(0, 5);
+const dateStamp = (date: Date) => date.toISOString().slice(0, 10).replaceAll("-", ".");
+---
+
+<div class="savepoint-home" data-pagefind-ignore>
+	<section class="savepoint-hero" aria-labelledby="home-title">
+		<img class="savepoint-hero-art" src={url("/media/moonlit-savepoint.webp")} width="1536" height="1024" alt="" fetchpriority="high" />
+		<div class="savepoint-hero-overlay" aria-hidden="true"></div>
+		<div class="savepoint-hero-content">
+			<p class="savepoint-kicker hero-kicker"><span aria-hidden="true">✦</span> MOONLIT SAVEPOINT</p>
+			<h1 id="home-title">月下存档点</h1>
+			<p class="savepoint-hero-tagline">独立游戏 <span>·</span> 生活手记 <span>·</span> AI 技术</p>
+			<p class="savepoint-hero-copy">记录好玩的游戏、日常里不想忘的小事，以及那些值得复跑的技术实验。</p>
+			<div class="savepoint-hero-actions">
+				<a class="savepoint-cta" href={url("/archive/")}>浏览文章</a>
+				<a class="savepoint-cta subtle" href={url("/about/")}>关于本站</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="savepoint-section" aria-labelledby="topic-title">
+		<div class="savepoint-section-title">
+			<h2 id="topic-title">专题索引 <span>TOPICS</span></h2>
+		</div>
+		<div class="savepoint-topics">
+			{topics.map((topic) => (
+				<a class={`savepoint-topic ${topic.tone}`} href={getCategoryUrl(topic.name)}>
+					<span class="savepoint-topic-icon" aria-hidden="true">
+						<svg viewBox="0 0 16 16" width="24" height="24" fill="currentColor" shape-rendering="crispEdges"><path d={topic.icon} fill-rule="evenodd" /></svg>
+					</span>
+					<div>
+						<p class="savepoint-kicker">{topic.label}</p>
+						<h3>{topic.name}</h3>
+						<p class="savepoint-topic-copy">{topic.description}</p>
+					</div>
+				</a>
+			))}
+		</div>
+	</section>
+
+	{featured.length > 0 && (
+		<section class="savepoint-section" aria-labelledby="featured-title">
+			<div class="savepoint-section-title">
+				<h2 id="featured-title">游戏精选 <span>FEATURED</span></h2>
+				<a class="savepoint-section-link" href={getCategoryUrl("独立游戏")}>全部游戏文章</a>
+			</div>
+			<div class="savepoint-featured">
+				{featured.map(({ post, game, credit, tone }) => (
+					<article class={`savepoint-article ${tone}`}>
+						<a href={getPostUrlBySlug(post.slug)} class="savepoint-article-link">
+							{post.data.image && (
+								<div class="savepoint-article-media">
+									<img src={url(post.data.image)} loading="lazy" decoding="async" width="960" height="540" alt={post.data.imageAlt} />
+									<span class="savepoint-game-label">{game}</span>
+								</div>
+							)}
+							<div class="savepoint-article-copy">
+								<p class="savepoint-kicker">无剧透导读</p>
+								<h3>{post.data.title}</h3>
+								<p class="savepoint-excerpt">{post.data.description}</p>
+								<small>配图：{credit} 官方公开截图</small>
+							</div>
+						</a>
+					</article>
+				))}
+			</div>
+		</section>
+	)}
+
+	{latest.length > 0 && (
+		<section class="savepoint-section" aria-labelledby="recent-title">
+			<div class="savepoint-section-title">
+				<h2 id="recent-title">站内更新 <span>RECENT</span></h2>
+				<a class="savepoint-section-link" href={url("/archive/")}>文章归档</a>
+			</div>
+			<ul class="savepoint-recent">
+				{latest.map((post) => (
+					<li><a href={getPostUrlBySlug(post.slug)}>
+						<span><small>{post.data.category}</small><strong>{post.data.title}</strong></span>
+						<time datetime={post.data.published.toISOString().slice(0, 10)}>{dateStamp(post.data.published)}</time>
+					</a></li>
+				))}
+			</ul>
+		</section>
+	)}
+</div>

@@ -1,0 +1,17 @@
+---
+import { url } from "@utils/url-utils";
+
+const target = url("/archive/");
+---
+
+<!doctype html>
+<html lang="zh-CN" data-pagefind-ignore>
+	<head>
+		<meta charset="utf-8" />
+		<title>文章归档已搬迁</title>
+		<meta name="robots" content="noindex" />
+		<meta http-equiv="refresh" content={`0; url=${target}`} />
+		<link rel="canonical" href={new URL(target, Astro.site || Astro.url)} />
+	</head>
+	<body><p>文章归档已搬迁。<a href={target}>前往新归档</a></p></body>
+</html>

@@ -1,0 +1,14 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { url } from "@utils/url-utils";
+---
+
+<MainGridLayout title="页面失踪了">
+	<section class="card-base p-8 md:p-12" data-pagefind-ignore>
+		<p class="savepoint-kicker">404</p>
+		<h1 class="my-3 text-3xl font-bold text-90">找不到这个页面</h1>
+		<p class="mb-5 text-75">它可能已经搬家了。可以回首页，或到归档找文章。</p>
+		<a href={url("/")} class="savepoint-cta">回到首页</a>
+		<a href={url("/archive/")} class="ml-4 font-semibold text-[var(--primary)]">查看归档</a>
+	</section>
+</MainGridLayout>
